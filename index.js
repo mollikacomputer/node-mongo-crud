@@ -30,11 +30,18 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function run(){
 
     try{
-
+        await client.connect();
+        // const collection = client.db("test").collection("devices");
+        const usersCollection = client.db("practice").collection("users");
+        // hard coded insert data into server
+        const user = {name: "Tinku Sikder", email:"tinku@gmail.com"}
+        const result = await usersCollection.insertOne(user);
+        console.log(`User inserted with id: ${result.insertedId} `)
     }finally{
+        // await client.close(); // after get some result need to close then use close
 
     }
-    
+
 }
 run().catch(console.dir);
 
